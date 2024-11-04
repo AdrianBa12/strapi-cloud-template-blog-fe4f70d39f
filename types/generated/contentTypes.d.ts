@@ -552,6 +552,42 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAsientoAsiento extends Struct.CollectionTypeSchema {
+  collectionName: 'asientos';
+  info: {
+    singularName: 'asiento';
+    pluralName: 'asientos';
+    displayName: 'Asiento';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    numeroAsiento: Schema.Attribute.Integer;
+    nombreUsuario: Schema.Attribute.String;
+    numeroPiso: Schema.Attribute.Integer;
+    estado: Schema.Attribute.Boolean;
+    precio: Schema.Attribute.Decimal;
+    buses_detalles: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::buses-detalle.buses-detalle'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::asiento.asiento'
+    >;
+  };
+}
+
 export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   collectionName: 'authors';
   info: {
@@ -577,6 +613,43 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::author.author'>;
+  };
+}
+
+export interface ApiBusesDetalleBusesDetalle
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'buses_detalles';
+  info: {
+    singularName: 'buses-detalle';
+    pluralName: 'buses-detalles';
+    displayName: 'BusesDetalles';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    origen: Schema.Attribute.String;
+    horaSalida: Schema.Attribute.Time;
+    destino: Schema.Attribute.String;
+    horaLlegada: Schema.Attribute.Time;
+    fechaSalida: Schema.Attribute.Date;
+    distanciaKm: Schema.Attribute.Integer;
+    terminalSaliente: Schema.Attribute.String;
+    terminalEntrante: Schema.Attribute.String;
+    precioPromedio: Schema.Attribute.Decimal;
+    asiento: Schema.Attribute.Relation<'manyToOne', 'api::asiento.asiento'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::buses-detalle.buses-detalle'
+    >;
   };
 }
 
@@ -1016,7 +1089,9 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::about.about': ApiAboutAbout;
       'api::article.article': ApiArticleArticle;
+      'api::asiento.asiento': ApiAsientoAsiento;
       'api::author.author': ApiAuthorAuthor;
+      'api::buses-detalle.buses-detalle': ApiBusesDetalleBusesDetalle;
       'api::category.category': ApiCategoryCategory;
       'api::global.global': ApiGlobalGlobal;
       'admin::permission': AdminPermission;
