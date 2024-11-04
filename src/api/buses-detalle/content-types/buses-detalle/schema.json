@@ -4,7 +4,8 @@
   "info": {
     "singularName": "buses-detalle",
     "pluralName": "buses-detalles",
-    "displayName": "BusesDetalles"
+    "displayName": "BusesDetalles",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -37,12 +38,6 @@
     },
     "precioPromedio": {
       "type": "decimal"
-    },
-    "asiento": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::asiento.asiento",
-      "inversedBy": "buses_detalles"
     }
   }
 }

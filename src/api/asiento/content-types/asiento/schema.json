@@ -27,11 +27,10 @@
     "precio": {
       "type": "decimal"
     },
-    "buses_detalles": {
+    "buses_detalle": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::buses-detalle.buses-detalle",
-      "mappedBy": "asiento"
+      "relation": "oneToOne",
+      "target": "api::buses-detalle.buses-detalle"
     }
   }
 }

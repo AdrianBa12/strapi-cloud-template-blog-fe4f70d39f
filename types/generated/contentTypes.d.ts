@@ -569,8 +569,8 @@ export interface ApiAsientoAsiento extends Struct.CollectionTypeSchema {
     numeroPiso: Schema.Attribute.Integer;
     estado: Schema.Attribute.Boolean;
     precio: Schema.Attribute.Decimal;
-    buses_detalles: Schema.Attribute.Relation<
-      'oneToMany',
+    buses_detalle: Schema.Attribute.Relation<
+      'oneToOne',
       'api::buses-detalle.buses-detalle'
     >;
     createdAt: Schema.Attribute.DateTime;
@@ -623,6 +623,7 @@ export interface ApiBusesDetalleBusesDetalle
     singularName: 'buses-detalle';
     pluralName: 'buses-detalles';
     displayName: 'BusesDetalles';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -637,7 +638,6 @@ export interface ApiBusesDetalleBusesDetalle
     terminalSaliente: Schema.Attribute.String;
     terminalEntrante: Schema.Attribute.String;
     precioPromedio: Schema.Attribute.Decimal;
-    asiento: Schema.Attribute.Relation<'manyToOne', 'api::asiento.asiento'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -709,6 +709,32 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::global.global'>;
+  };
+}
+
+export interface ApiRutaRuta extends Struct.CollectionTypeSchema {
+  collectionName: 'rutas';
+  info: {
+    singularName: 'ruta';
+    pluralName: 'rutas';
+    displayName: 'Rutas';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Titulo: Schema.Attribute.String;
+    fecha: Schema.Attribute.Date;
+    Descripcion: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::ruta.ruta'>;
   };
 }
 
@@ -1094,6 +1120,7 @@ declare module '@strapi/strapi' {
       'api::buses-detalle.buses-detalle': ApiBusesDetalleBusesDetalle;
       'api::category.category': ApiCategoryCategory;
       'api::global.global': ApiGlobalGlobal;
+      'api::ruta.ruta': ApiRutaRuta;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
       'admin::role': AdminRole;
