@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "compras",
+  "info": {
+    "singularName": "compra",
+    "pluralName": "compras",
+    "displayName": "Compra",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "correoElectronico": {
+      "type": "email"
+    },
+    "celular": {
+      "type": "integer"
+    },
+    "ruc": {
+      "type": "integer"
+    },
+    "razonSocial": {
+      "type": "text"
+    },
+    "direccion": {
+      "type": "text"
+    },
+    "total": {
+      "type": "decimal"
+    },
+    "fechaCompra": {
+      "type": "date"
+    }
+  }
+}

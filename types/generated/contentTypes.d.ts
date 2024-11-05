@@ -565,7 +565,6 @@ export interface ApiAsientoAsiento extends Struct.CollectionTypeSchema {
   };
   attributes: {
     numeroAsiento: Schema.Attribute.Integer;
-    nombreUsuario: Schema.Attribute.String;
     numeroPiso: Schema.Attribute.Integer;
     estado: Schema.Attribute.Boolean;
     precio: Schema.Attribute.Decimal;
@@ -684,6 +683,37 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCompraCompra extends Struct.CollectionTypeSchema {
+  collectionName: 'compras';
+  info: {
+    singularName: 'compra';
+    pluralName: 'compras';
+    displayName: 'Compra';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    correoElectronico: Schema.Attribute.Email;
+    celular: Schema.Attribute.Integer;
+    ruc: Schema.Attribute.Integer;
+    razonSocial: Schema.Attribute.Text;
+    direccion: Schema.Attribute.Text;
+    total: Schema.Attribute.Decimal;
+    fechaCompra: Schema.Attribute.Date;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::compra.compra'>;
+  };
+}
+
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
@@ -709,6 +739,39 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::global.global'>;
+  };
+}
+
+export interface ApiPasajeroPasajero extends Struct.CollectionTypeSchema {
+  collectionName: 'pasajeros';
+  info: {
+    singularName: 'pasajero';
+    pluralName: 'pasajeros';
+    displayName: 'Pasajero';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    nombres: Schema.Attribute.String;
+    apellidos: Schema.Attribute.String;
+    tipoDocumento: Schema.Attribute.String;
+    documento: Schema.Attribute.String;
+    asiento: Schema.Attribute.Relation<'oneToOne', 'api::asiento.asiento'>;
+    compra: Schema.Attribute.Relation<'oneToOne', 'api::compra.compra'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pasajero.pasajero'
+    >;
   };
 }
 
@@ -1119,7 +1182,9 @@ declare module '@strapi/strapi' {
       'api::author.author': ApiAuthorAuthor;
       'api::buses-detalle.buses-detalle': ApiBusesDetalleBusesDetalle;
       'api::category.category': ApiCategoryCategory;
+      'api::compra.compra': ApiCompraCompra;
       'api::global.global': ApiGlobalGlobal;
+      'api::pasajero.pasajero': ApiPasajeroPasajero;
       'api::ruta.ruta': ApiRutaRuta;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
