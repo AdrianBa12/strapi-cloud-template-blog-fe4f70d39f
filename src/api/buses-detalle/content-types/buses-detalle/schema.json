@@ -38,6 +38,12 @@
     },
     "precioPromedio": {
       "type": "decimal"
+    },
+    "asientos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::asiento.asiento",
+      "mappedBy": "buses_detalle"
     }
   }
 }

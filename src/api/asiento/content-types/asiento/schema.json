@@ -26,8 +26,9 @@
     },
     "buses_detalle": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::buses-detalle.buses-detalle"
+      "relation": "manyToOne",
+      "target": "api::buses-detalle.buses-detalle",
+      "inversedBy": "asientos"
     }
   }
 }

@@ -569,7 +569,7 @@ export interface ApiAsientoAsiento extends Struct.CollectionTypeSchema {
     estado: Schema.Attribute.Boolean;
     precio: Schema.Attribute.Decimal;
     buses_detalle: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'api::buses-detalle.buses-detalle'
     >;
     createdAt: Schema.Attribute.DateTime;
@@ -637,6 +637,7 @@ export interface ApiBusesDetalleBusesDetalle
     terminalSaliente: Schema.Attribute.String;
     terminalEntrante: Schema.Attribute.String;
     precioPromedio: Schema.Attribute.Decimal;
+    asientos: Schema.Attribute.Relation<'oneToMany', 'api::asiento.asiento'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -702,6 +703,8 @@ export interface ApiCompraCompra extends Struct.CollectionTypeSchema {
     direccion: Schema.Attribute.Text;
     total: Schema.Attribute.Decimal;
     fechaCompra: Schema.Attribute.Date;
+    asientos: Schema.Attribute.Relation<'oneToMany', 'api::asiento.asiento'>;
+    pasajero: Schema.Attribute.Relation<'manyToOne', 'api::pasajero.pasajero'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -758,8 +761,7 @@ export interface ApiPasajeroPasajero extends Struct.CollectionTypeSchema {
     apellidos: Schema.Attribute.String;
     tipoDocumento: Schema.Attribute.String;
     documento: Schema.Attribute.String;
-    asiento: Schema.Attribute.Relation<'oneToOne', 'api::asiento.asiento'>;
-    compra: Schema.Attribute.Relation<'oneToOne', 'api::compra.compra'>;
+    compras: Schema.Attribute.Relation<'oneToMany', 'api::compra.compra'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

@@ -24,15 +24,11 @@
     "documento": {
       "type": "string"
     },
-    "asiento": {
+    "compras": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::asiento.asiento"
-    },
-    "compra": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::compra.compra"
+      "relation": "oneToMany",
+      "target": "api::compra.compra",
+      "mappedBy": "pasajero"
     }
   }
 }

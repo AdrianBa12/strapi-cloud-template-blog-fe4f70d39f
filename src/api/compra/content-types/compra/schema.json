@@ -32,6 +32,17 @@
     },
     "fechaCompra": {
       "type": "date"
+    },
+    "asientos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::asiento.asiento"
+    },
+    "pasajero": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pasajero.pasajero",
+      "inversedBy": "compras"
     }
   }
 }
